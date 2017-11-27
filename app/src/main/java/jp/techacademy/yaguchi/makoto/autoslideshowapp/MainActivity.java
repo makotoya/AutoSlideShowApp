@@ -34,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
     Handler mHandler = new Handler();
 
+    private void gazo() {
+        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
+        Long id = cursor.getLong(fieldIndex);
+        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
+        imageVIew.setImageURI(imageUri);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,18 +58,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (cursor.isLast()) {      // 最後の画像表示時の処理
                     cursor.moveToFirst();
-                    int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                    Long id = cursor.getLong(fieldIndex);
-                    Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                    ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                    imageVIew.setImageURI(imageUri);
+                    gazo();
                 } else {
                     cursor.moveToNext();
-                    int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                    Long id = cursor.getLong(fieldIndex);
-                    Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                    ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                    imageVIew.setImageURI(imageUri);
+                    gazo();
                 }
             }
         });
@@ -72,18 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (cursor.isFirst()) {     // 最初の画像表示時の処理
                         cursor.moveToLast();
-                        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                        Long id = cursor.getLong(fieldIndex);
-                        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                        imageVIew.setImageURI(imageUri);
+                        gazo();
                     } else {
                         cursor.moveToPrevious();
-                        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                        Long id = cursor.getLong(fieldIndex);
-                        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                        imageVIew.setImageURI(imageUri);
+                        gazo();
                     }
                 }
         });
@@ -106,18 +98,10 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     if (cursor.isLast()) {      // 最後の画像表示時の処理
                                         cursor.moveToFirst();
-                                        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                                        Long id = cursor.getLong(fieldIndex);
-                                        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                                        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                                        imageVIew.setImageURI(imageUri);
+                                        gazo();
                                     } else {
                                         cursor.moveToNext();
-                                        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                                        Long id = cursor.getLong(fieldIndex);
-                                        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                                        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-                                        imageVIew.setImageURI(imageUri);
+                                        gazo();
                                     }
                                 }
                             });
@@ -180,11 +164,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         cursor.moveToFirst();
-        int fieldIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-        Long id = cursor.getLong(fieldIndex);
-        Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-
-        ImageView imageVIew = (ImageView) findViewById(R.id.imageView);
-        imageVIew.setImageURI(imageUri);
+        gazo();
     }
 }
